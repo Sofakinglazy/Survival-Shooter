@@ -6,6 +6,7 @@ using System;
 public class WeaponManager : MonoBehaviour {
 
     public Slider healthSilder;
+    public int scorePerUpdate = 100;
 
     GameObject player;
     PlayerHealth playerHealth;
@@ -20,20 +21,16 @@ public class WeaponManager : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("player");
         playerHealth = player.GetComponent<PlayerHealth>();
         anim = GetComponent<Animator>();
-        //lastScore = ScoreManager.score;
         UpdateLevelScore();
     }
 
     void Update()
     {
         currScore = ScoreManager.score;
-        Debug.Log(currScore - lastScore);
         if ((currScore - lastScore) >= levelScore && currScore != 0)
         {
             PlayerShooting.damagePerShot += 20;
             RestorePlayerHealth();
-            //Debug.Log(currScore - lastScore);
-            //Debug.Log(PlayerShooting.damagePerShot);
             anim.SetTrigger("GunUpgrade");
             lastScore = currScore;
             level++;
@@ -52,6 +49,6 @@ public class WeaponManager : MonoBehaviour {
 
     void UpdateLevelScore()
     {
-        levelScore = (int)(Mathf.Log(level + 2, 2)) * 10;
+        levelScore = (int)(Mathf.Log(level + 2, 2)) * scorePerUpdate;
     }
 }
