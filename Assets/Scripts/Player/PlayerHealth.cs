@@ -2,86 +2,62 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
+    public int startHealth = 100;
     public int currentHealth;
-    public Slider healthSlider;
+    public Slider healthSilder;
     public Image damageImage;
-    public AudioClip deathClip;
+    public Color flashColor = new Color(1f, 0f, 0f, 1f);
     public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    public AudioClip deadClip;
 
+    private AudioSource playerAudio; 
+    private Animator animator;
+    private PlayerMovement playerMovement;
+    private PlayerShooting playerShooting;
+    private bool damage;
+    private bool isDead;
 
-    Animator anim;
-    AudioSource playerAudio;
-    PlayerMovement playerMovement;
-    //PlayerShooting playerShooting;
-    bool isDead;
-    bool damaged;
-
-
-    void Awake ()
+    void Awake()
     {
-        anim = GetComponent <Animator> ();
-        playerAudio = GetComponent <AudioSource> ();
-        playerMovement = GetComponent <PlayerMovement> ();
-        //playerShooting = GetComponentInChildren <PlayerShooting> ();
-        currentHealth = startingHealth;
+        playerAudio = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerShooting = GetComponentInChildren<PlayerShooting>();
+        currentHealth = startHealth;
     }
 
-
-    void Update ()
+    void Update()
     {
-        if(damaged)
-        {
-            damageImage.color = flashColour;
-        }
+        if (damage)
+            damageImage.color = flashColor;
         else
-        {
-            damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        }
-        damaged = false;
+            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+        damage = false;
     }
 
-
-    public void TakeDamage (int amount)
+    public void TakeDamage(int loss)
     {
-        damaged = true;
-
-        currentHealth -= amount;
-
-        healthSlider.value = currentHealth;
-
-        playerAudio.Play ();
-
-        if(currentHealth <= 0 && !isDead)
-        {
-            Death ();
-        }
+        damage = true;
+        currentHealth -= loss;
+        healthSilder.value = currentHealth;
+        playerAudio.Play();
+        if (currentHealth == 0 && !isDead)
+            SetDead();
     }
 
-
-    void Death ()
+    void SetDead()
     {
         isDead = true;
-
-        //playerShooting.DisableEffects ();
-
-        anim.SetTrigger ("Die");
-
-        playerAudio.clip = deathClip;
-        playerAudio.Play ();
-
+        playerAudio.clip = deadClip;
+        playerAudio.Play();
+        playerShooting.DisableEffects();
+        playerShooting.enabled = false;
+        animator.SetTrigger("Die");
         playerMovement.enabled = false;
-        //playerShooting.enabled = false;
-    }
-
-
-    public void RestartLevel ()
-    {
-        SceneManager.LoadScene (0);
+        
     }
 }
