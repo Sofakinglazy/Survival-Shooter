@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour
 {
     public PlayerHealth playerHealth;
-    public GameObject enemy;
+    public List<GameObject> enemy;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
 
@@ -22,7 +23,8 @@ public class EnemyManager : MonoBehaviour
         }
 
         int spawnPointIndex = Random.Range (0, spawnPoints.Length);
+        int enemyIndex = Random.Range(0, enemy.Count);
 
-        Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        Instantiate (enemy[enemyIndex], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
     }
 }
