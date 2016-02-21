@@ -1462,7 +1462,6 @@ GameObject:
   - 114: {fileID: 1915410344}
   - 114: {fileID: 1915410343}
   - 95: {fileID: 1915410347}
-  - 114: {fileID: 1915410348}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -1564,16 +1563,3 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &1915410348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1915410342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9c9e0011c2ed97428a4efc03b455359, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1505136579}
-  restartDelay: 5
