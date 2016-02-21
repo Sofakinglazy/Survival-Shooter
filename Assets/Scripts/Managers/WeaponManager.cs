@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class WeaponManager : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class WeaponManager : MonoBehaviour {
     GameObject player;
     PlayerHealth playerHealth;
     Animator anim;
+    int currScore;
+    int lastScore;
+    int level;
     int levelScore;
 
     void Awake()
@@ -16,23 +20,38 @@ public class WeaponManager : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("player");
         playerHealth = player.GetComponent<PlayerHealth>();
         anim = GetComponent<Animator>();
-        levelScore = ScoreManager.score;
+        //lastScore = ScoreManager.score;
+        UpdateLevelScore();
     }
 
     void Update()
     {
-        if ((ScoreManager.score - levelScore) >= 100 && ScoreManager.score != 0)
+        currScore = ScoreManager.score;
+        Debug.Log(currScore - lastScore);
+        if ((currScore - lastScore) >= levelScore && currScore != 0)
         {
             PlayerShooting.damagePerShot += 20;
-            if (playerHealth.currentHealth < 100)
-            {
-                playerHealth.currentHealth += 10;
-                healthSilder.value = playerHealth.currentHealth;
-            }
-                
-            Debug.Log(PlayerShooting.damagePerShot);
+            RestorePlayerHealth();
+            //Debug.Log(currScore - lastScore);
+            //Debug.Log(PlayerShooting.damagePerShot);
             anim.SetTrigger("GunUpgrade");
-            levelScore = ScoreManager.score;
+            lastScore = currScore;
+            level++;
         }
+        UpdateLevelScore();
+    }
+
+    private void RestorePlayerHealth()
+    {
+        if (playerHealth.currentHealth < 100)
+        {
+            playerHealth.currentHealth += 10;
+            healthSilder.value = playerHealth.currentHealth;
+        }
+    }
+
+    void UpdateLevelScore()
+    {
+        levelScore = (int)(Mathf.Log(level + 2, 2)) * 10;
     }
 }
