@@ -936,6 +936,7 @@ GameObject:
   - 114: {fileID: 976256134}
   - 114: {fileID: 976256133}
   - 95: {fileID: 976256137}
+  - 114: {fileID: 976256138}
   m_Layer: 5
   m_Name: UpgradeInfo
   m_TagString: Untagged
@@ -1006,16 +1007,16 @@ RectTransform:
   m_GameObject: {fileID: 976256132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 740271180}
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_Father: {fileID: 1915410346}
+  m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 344, y: 128}
+  m_SizeDelta: {x: 688, y: 256}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &976256137
 Animator:
   serializedVersion: 3
@@ -1033,6 +1034,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &976256138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 976256132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a0c7369c51b9542b9b9f385c421474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSilder: {fileID: 65955556}
 --- !u!1 &1232729122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1735,7 @@ RectTransform:
   - {fileID: 1458689415}
   - {fileID: 1836706140}
   - {fileID: 1232729123}
+  - {fileID: 976256136}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0}
