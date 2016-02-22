@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
     public int currentHealth;
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
+    public int powerValue = 1;
     public AudioClip deathClip;
 
 
@@ -13,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
     AudioSource enemyAudio;
     ParticleSystem hitParticles;
     CapsuleCollider capsuleCollider;
+    PlayerPowerBar playerPowerBar;
     bool isDead;
     bool isSinking;
 
@@ -23,7 +25,8 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio = GetComponent <AudioSource> ();
         hitParticles = GetComponentInChildren <ParticleSystem> ();
         capsuleCollider = GetComponent <CapsuleCollider> ();
-
+        GameObject player = GameObject.FindGameObjectWithTag("player");
+        playerPowerBar = player.GetComponent<PlayerPowerBar>();
         currentHealth = startingHealth;
     }
 
@@ -75,6 +78,7 @@ public class EnemyHealth : MonoBehaviour
         GetComponent <Rigidbody> ().isKinematic = true;
         isSinking = true;
         ScoreManager.score += scoreValue;
+        playerPowerBar.IncreasePower(powerValue);
         Destroy (gameObject, 2f);
     }
 }
